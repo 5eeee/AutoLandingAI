@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoLandingAI - Генерация текстов для лендингов</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(45deg, #ff4e50, #f9d423); /* Градиентный фон */
+            color: #333;
+        }
+        header {
+            background-color: rgba(255, 50, 50, 0.9); /* Полупрозрачный красный фон */
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            border-bottom: 5px solid #f9d423;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 40px;
+            font-weight: bold;
+        }
+        header p {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .container {
+            width: 85%;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .section-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #d14e55; /* Красный оттенок */
+            margin-bottom: 20px;
+        }
+        .description {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #555;
+        }
+        .input-box {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            background-color: #fafafa;
+            box-sizing: border-box; /* Чтобы padding не вылезал за пределы */
+        }
+        .input-box:focus {
+            border-color: #d14e55; /* Красный цвет при фокусе */
+            outline: none;
+            background-color: #ffffff;
+        }
+        .btn {
+            background-color: #d14e55; /* Красная кнопка */
+            color: white;
+            padding: 18px;
+            font-size: 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+            box-sizing: border-box;
+        }
+        .btn:hover {
+            background-color: #c33e46; /* Темнее при наведении */
+        }
+        .highlight {
+            color: #ff4e50; /* Более яркий красный для выделений */
+            font-weight: bold;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .result-box {
+            background-color: #ffe6e6; /* Светло-красный фон для результата */
+            padding: 20px;
+            border-left: 4px solid #d14e55;
+            margin-top: 20px;
+            font-style: italic;
+            color: #333;
+        }
+        footer {
+            text-align: center;
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        .footer-link {
+            color: #bbb;
+            text-decoration: none;
+        }
+        .footer-link:hover {
+            color: white;
+        }
+        .prototype-info {
+            font-size: 14px;
+            color: #bbb;
+            margin-top: 20px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>AutoLandingAI</h1>
+    <p>Генерация текстов для лендингов и рекламных кампаний с помощью нейросети</p>
+</header>
+
+<div class="container">
+    <div class="section">
+        <h2 class="section-title">Как это работает?</h2>
+        <p class="description">
+            Введите краткое описание вашего бизнеса, и наш сервис сгенерирует для вас текст для лендинга, который привлечет клиентов! AutoLandingAI использует самые современные нейросети, чтобы адаптировать тексты под вашу аудиторию и
+            продукты. Сэкономьте время и деньги, а главное — получите качественные тексты, которые помогут вам выделиться на рынке.
+        </p>
+    </div>
+
+    <div class="section">
+        <h3 class="section-title">Шаг 1: Введите описание вашего бизнеса</h3>
+        <p class="description">
+            Расскажите нам, чем занимается ваш бизнес. Например, расскажите о товаре, услуге, преимуществах или целевой
+            аудитории. Чем больше информации вы предоставите, тем точнее будет результат.
+        </p>
+        <input type="text" id="business-description" class="input-box" placeholder="Например: Мы продаем органическую косметику для чувствительной кожи">
+    </div>
+
+    <div class="section">
+        <h3 class="section-title">Шаг 2: Создайте текст</h3>
+        <p class="description">
+            После того как вы введете описание, просто нажмите кнопку, и наша нейросеть сгенерирует текст для вашего
+            лендинга, который будет полностью готов к использованию.
+        </p>
+        <button class="btn" id="generate-button">Создать текст</button>
+    </div>
+
+    <div class="section" id="result-section" style="display: none;">
+        <h3 class="section-title">Ваш сгенерированный текст:</h3>
+        <div id="generated-text" class="result-box"></div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 AutoLandingAI. Все права защищены.</p>
+    <p><a href="#" class="footer-link">Политика конфиденциальности</a> | <a href="#" class="footer-link">Контакты</a></p>
+    <p class="prototype-info">
+        Это <span class="highlight">прототип</span>. Без подключения к реальному API генерация текстов не будет работать. Этот пример демонстрирует функциональность на основе имитации.
+    </p>
+</footer>
+
+<script>
+// Простая имитация генерации текста для демонстрации
+document.getElementById('generate-button').addEventListener('click', function() {
+    const description = document.getElementById('business-description').value;
+    if (description.trim() === '') {
+        alert('Пожалуйста, введите описание вашего бизнеса.');
+        return;
+    }
+
+    // Здесь просто имитируем результат
+    const generatedText = Текст для лендинга по запросу: "${description}" будет подготовлен! Мы предлагаем вам лучший продукт на рынке, который поможет вам ${description}.;
+
+    document.getElementById('generated-text').innerText = generatedText;
+    document.getElementById('result-section').style.display = 'block';
+});
+</script>
+
+</body>
+</html>
